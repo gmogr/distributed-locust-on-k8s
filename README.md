@@ -25,16 +25,21 @@ export REGION=<GCP_REGION>
 Create a GKE cluster (if you don't have one):
 ```bash
 gcloud container clusters create locust-test \
-  --enable-private-nodes \
-  --enable-ip-alias \
-  --machine-type=n2-standard-4 \
-  --region=${REGION} \
-  --project ${PROJECT_ID}
+--enable-private-nodes \
+--enable-ip-alias \
+--shielded-secure-boot \
+--enable-shielded-nodes \
+--shielded-integrity-monitoring \
+--no-enable-master-authorized-networks \
+--machine-type=n2-standard-4 \
+--enable-dns-access \
+--region=${REGION} \
+--project=${PROJECT_ID}
 ```
 
 Connect to the cluster:
 ```bash
-gcloud container clusters get-credentials locust-test --region ${REGION} --project ${PROJECT_ID}
+gcloud container clusters get-credentials locust-test --region ${REGION} --project ${PROJECT_ID} --dns-endpoint
 ```
 
 ---
@@ -67,7 +72,7 @@ kubectl apply -f locust.yaml
 ### Access the Web UI
 Port-forward to the master node:
 ```bash
-kubectl port-forward service/locust-master 8089:8089
+kubectl port-forward service/locust-master 8089:8080
 ```
 Then open `http://localhost:8089` in your browser. If using [Google Cloud Shell](https://docs.cloud.google.com/shell/docs/using-cloud-shell), use the [Web Preview](https://docs.cloud.google.com/shell/docs/using-web-preview) button.
 
