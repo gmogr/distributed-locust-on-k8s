@@ -72,7 +72,7 @@ kubectl apply -f locust.yaml
 ### Access the Web UI
 Port-forward to the master node:
 ```bash
-kubectl port-forward service/locust-master 8089:8080
+kubectl port-forward service/locust-master 8080:8089
 ```
 Then open `http://localhost:8089` in your browser. If using [Google Cloud Shell](https://docs.cloud.google.com/shell/docs/using-cloud-shell), use the [Web Preview](https://docs.cloud.google.com/shell/docs/using-web-preview) button.
 
